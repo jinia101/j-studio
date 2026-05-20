@@ -74,7 +74,7 @@ export default function Header({
       <div className="upfront-bar">
         <div className="upfront-links">
           <a
-            href="https://github.com/jini101"
+            href="https://github.com/jinia101"
             target="_blank"
             rel="noopener noreferrer"
             className="upfront-link"
