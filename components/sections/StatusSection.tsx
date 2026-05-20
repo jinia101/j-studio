@@ -19,7 +19,7 @@ export default function StatusSection() {
           textTransform: "lowercase",
         }}
       >
-        current pipeline focus
+        current focus
       </h3>
 
       <div
@@ -50,7 +50,7 @@ export default function StatusSection() {
               textTransform: "lowercase",
             }}
           >
-            high-performance canvas rendering
+            Building 7obits
           </h4>
           <p
             className="muted-text"
@@ -60,9 +60,8 @@ export default function StatusSection() {
               textTransform: "lowercase",
             }}
           >
-            currently building a custom monochrome vector design system on
-            canvas, optimized for real-time visualization of structural data with
-            low memory usage.
+            currently architecting multi-tenant SaaS platform with integrated
+            CRM, project management, and automated invoicing.
           </p>
         </div>
       </div>
@@ -96,8 +95,41 @@ export default function StatusSection() {
           <span className="muted-text" style={{ textTransform: "lowercase" }}>
             listening:
           </span>
-          <span style={{ textTransform: "lowercase" }}>
-            technical synth / monolithic ambient drone
+          <span
+            style={{
+              textTransform: "lowercase",
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "4px 0",
+            }}
+          >
+            <a
+              href="https://open.spotify.com/track/1mea3bSkSGXuIRvnydlB5b"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                color: "var(--text-color)",
+                transition: "opacity 0.2s",
+              }}
+            >
+              viva la vida
+            </a>
+            <span style={{ margin: "0 6px", opacity: 0.4 }}>/</span>
+            <a
+              href="https://open.spotify.com/track/3GZD6HmiNUhxXYf8Gch723"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                textDecoration: "underline",
+                textUnderlineOffset: "3px",
+                color: "var(--text-color)",
+                transition: "opacity 0.2s",
+              }}
+            >
+              lost
+            </a>
           </span>
         </div>
         <div
@@ -114,7 +146,7 @@ export default function StatusSection() {
             exploring:
           </span>
           <span style={{ textTransform: "lowercase" }}>
-            webassembly (wasm) &amp; rust graphics pipelines
+            Message Queueing techniques &amp; system designs
           </span>
         </div>
       </div>

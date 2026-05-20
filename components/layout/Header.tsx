@@ -1,5 +1,10 @@
 import { personalInfo } from "@/data/personal";
-import { GithubIcon, LinkedinIcon, CopyIcon, DownloadIcon } from "@/components/ui/icons";
+import {
+  GithubIcon,
+  LinkedinIcon,
+  CopyIcon,
+  DownloadIcon,
+} from "@/components/ui/icons";
 
 interface HeaderProps {
   localTime: string;
@@ -7,7 +12,11 @@ interface HeaderProps {
   onCopyEmail: () => void;
 }
 
-export default function Header({ localTime, copiedEmail, onCopyEmail }: HeaderProps) {
+export default function Header({
+  localTime,
+  copiedEmail,
+  onCopyEmail,
+}: HeaderProps) {
   return (
     <header style={{ paddingBottom: "16px" }}>
       <div
@@ -65,7 +74,7 @@ export default function Header({ localTime, copiedEmail, onCopyEmail }: HeaderPr
       <div className="upfront-bar">
         <div className="upfront-links">
           <a
-            href="https://github.com"
+            href="https://github.com/jini101"
             target="_blank"
             rel="noopener noreferrer"
             className="upfront-link"
@@ -74,7 +83,7 @@ export default function Header({ localTime, copiedEmail, onCopyEmail }: HeaderPr
             github &rarr;
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/jinia-s/"
             target="_blank"
             rel="noopener noreferrer"
             className="upfront-link"
@@ -88,15 +97,13 @@ export default function Header({ localTime, copiedEmail, onCopyEmail }: HeaderPr
           </button>
         </div>
         <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            alert("simulating pdf cv download pipeline.");
-          }}
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
           className="resume-btn"
         >
           <DownloadIcon style={{ marginRight: "2px" }} />
-          download cv [.pdf] &rarr;
+          Resume &rarr;
         </a>
       </div>
     </header>

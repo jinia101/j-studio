@@ -17,15 +17,35 @@ export default function ConnectSection() {
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "failed to send message");
+      }
+
       setFormSubmitted(true);
       setFormData({ name: "", email: "", message: "" });
-    }, 800);
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : "something went wrong";
+      setErrorMessage(message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -49,18 +69,14 @@ export default function ConnectSection() {
               margin: "0 0 8px 0",
             }}
           >
-            📨 comms dispatch successful &rarr;
+            📨 message sent successful &rarr;
           </h3>
           <p
             style={{ fontSize: "0.85rem", textTransform: "lowercase" }}
             className="muted-text"
           >
             your technical query has been signed and injected. i will respond to
-            your return coordinates at{" "}
-            <strong style={{ textDecoration: "underline" }}>
-              jiniasingha10@gmail.com
-            </strong>{" "}
-            swiftly.
+            your return coordinates swiftly.
           </p>
           <button
             onClick={() => setFormSubmitted(false)}
@@ -71,7 +87,7 @@ export default function ConnectSection() {
               fontSize: "0.75rem",
             }}
           >
-            dispatch another comms &rarr;
+            send another message &rarr;
           </button>
         </div>
       ) : (
@@ -83,6 +99,22 @@ export default function ConnectSection() {
             gap: "16px",
           }}
         >
+          {errorMessage && (
+            <div
+              style={{
+                border: "1px solid rgba(220, 38, 38, 0.3)",
+                borderRadius: "4px",
+                padding: "12px 16px",
+                backgroundColor: "rgba(220, 38, 38, 0.05)",
+                fontSize: "0.85rem",
+                textTransform: "lowercase",
+                color: "var(--text-color)",
+              }}
+            >
+              ⚠ {errorMessage}
+            </div>
+          )}
+
           <div
             style={{
               display: "flex",
@@ -91,6 +123,7 @@ export default function ConnectSection() {
             }}
           >
             <label
+              htmlFor="contact-name"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "0.8rem",
@@ -101,6 +134,7 @@ export default function ConnectSection() {
               name:
             </label>
             <input
+              id="contact-name"
               type="text"
               required
               placeholder="e.g., dev team leader / founder"
@@ -120,6 +154,7 @@ export default function ConnectSection() {
             }}
           >
             <label
+              htmlFor="contact-email"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "0.8rem",
@@ -130,6 +165,7 @@ export default function ConnectSection() {
               email:
             </label>
             <input
+              id="contact-email"
               type="email"
               required
               placeholder="e.g., engineer@client.com"
@@ -149,6 +185,7 @@ export default function ConnectSection() {
             }}
           >
             <label
+              htmlFor="contact-message"
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "0.8rem",
@@ -159,6 +196,7 @@ export default function ConnectSection() {
               message:
             </label>
             <textarea
+              id="contact-message"
               rows={4}
               required
               placeholder="state your technical request, project timeline, or system specifications..."
@@ -176,7 +214,7 @@ export default function ConnectSection() {
             disabled={isSubmitting}
             className="brutalist-btn"
           >
-            {isSubmitting ? "dispatching..." : "dispatch secure payload →"}
+            {isSubmitting ? "dispatching..." : "send →"}
           </button>
         </form>
       )}

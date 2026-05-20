@@ -9,13 +9,17 @@ export const projects: ProjectEntry[] = [
       "developed full-stack streamlit application with rag architecture using langchain, chromadb, and groq llm, helping users reduce environmental footprint across co2, water, and waste metrics by up to 40%. implemented natural language query processing, csv/excel analysis, interactive dashboards with real-time visualizations, and an a+ to f environmental scoring system.",
     tags: ["streamlit", "langchain", "chromadb", "groq llm", "python"],
     links: [
-      { label: "repo", href: "https://github.com", icon: "github" },
+      {
+        label: "repo",
+        href: "https://github.com/jinia101/March-7",
+        icon: "github",
+      },
       { label: "demo", href: "https://demo.com", icon: "external" },
     ],
   },
   {
     id: "proj_02",
-    name: "7bits saas",
+    name: "7obits ",
     category: "[ freelancer & agency operations ]",
     description:
       "architecting a multi-tenant saas platform with integrated crm, project management, and automated invoicing. engineered postgresql rls policies and redis/bullmq worker infrastructure for async billing workflows. implementing automated billing cycles (milestone, retainer, hourly), payment reconciliation, and real-time analytics dashboards for revenue and pipeline tracking.",
@@ -30,7 +34,13 @@ export const projects: ProjectEntry[] = [
       "vercel",
       "pwa",
     ],
-    links: [{ label: "repo", href: "https://github.com", icon: "github" }],
+    links: [
+      {
+        label: "repo",
+        href: "https://github.com/jinia101/7obits",
+        icon: "github",
+      },
+    ],
   },
   {
     id: "proj_03",
@@ -46,6 +56,12 @@ export const projects: ProjectEntry[] = [
       "tailwind css",
       "rest apis",
     ],
-    links: [{ label: "repo", href: "https://github.com", icon: "github" }],
+    links: [
+      {
+        label: "repo",
+        href: "https://github.com/jinia101/OatMeal2/tree/main",
+        icon: "github",
+      },
+    ],
   },
 ];

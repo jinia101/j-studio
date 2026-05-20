@@ -21,7 +21,9 @@ export const experiences: ExperienceEntry[] = [
       "redis",
       "tls 1.3",
     ],
-    links: [{ label: "demo", href: "https://github.com", icon: "external" }],
+    links: [
+      { label: "demo", href: "https://gsp-pro.vercel.app/", icon: "external" },
+    ],
   },
   {
     tabLabel: "exp // 02 (intern)",
@@ -43,8 +45,16 @@ export const experiences: ExperienceEntry[] = [
       "jwt auth",
     ],
     links: [
-      { label: "repo", href: "https://github.com", icon: "github" },
-      { label: "cert", href: "https://github.com", icon: "certificate" },
+      {
+        label: "repo",
+        href: "https://github.com/jinia101/shg-backend-mono",
+        icon: "github",
+      },
+      {
+        label: "cert",
+        href: "https://drive.google.com/file/d/1wuMfJxodd_4SMk_Kd-fOXPwFkxJ8kXcf/view?usp=sharing",
+        icon: "certificate",
+      },
     ],
   },
 ];

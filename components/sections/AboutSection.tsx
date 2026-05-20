@@ -1,6 +1,15 @@
 import { aboutBullets, personalInfo } from "@/data/personal";
 import SpecItem from "@/components/ui/SpecItem";
-import { ChevronCodeIcon, PinIcon, ClockIcon, PhoneIcon, MailIcon, LinkIcon, GenderIcon, GraduationIcon } from "@/components/ui/icons";
+import {
+  ChevronCodeIcon,
+  PinIcon,
+  ClockIcon,
+  PhoneIcon,
+  MailIcon,
+  LinkIcon,
+  GenderIcon,
+  GraduationIcon,
+} from "@/components/ui/icons";
 
 interface AboutSectionProps {
   localTime: string;
@@ -87,7 +96,7 @@ export default function AboutSection({ localTime }: AboutSectionProps) {
         <SpecItem
           icon={<GraduationIcon />}
           label="academic sheet"
-          value="B.Tech CSE, (9.54 cgpa) — 2023 - 2027"
+          value="B.Tech CSE 2023 - 2027"
           colSpan={2}
         />
       </div>
