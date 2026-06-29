@@ -7,12 +7,21 @@ import { ExternalIcon, GithubIcon, CertificateIcon } from "@/components/ui/icons
 
 export default function ExperienceSection() {
   const [activeJob, setActiveJob] = useState(0);
+  // Hint disappears once user clicks any tab (proving they know tabs exist)
+  const [hintDismissed, setHintDismissed] = useState(false);
+
+  const handleTabClick = (idx: number) => {
+    setActiveJob(idx);
+    if (!hintDismissed) setHintDismissed(true);
+  };
 
   const linkIconMap = {
     external: <ExternalIcon />,
     github: <GithubIcon />,
     certificate: <CertificateIcon />,
   };
+
+  const showHint = !hintDismissed && experiences.length > 1;
 
   return (
     <div
@@ -23,41 +32,44 @@ export default function ExperienceSection() {
       }}
     >
       {/* Role Tab Stack */}
-      <div
-        style={{
-          display: "flex",
-          border: "1px solid var(--border-color)",
-          borderRadius: "4px",
-          cursor: "pointer",
-          overflow: "hidden",
-        }}
-      >
-        {experiences.map((exp, idx) => (
-          <div
-            key={idx}
-            onClick={() => setActiveJob(idx)}
-            style={{
-              flex: 1,
-              textAlign: "center",
-              padding: "8px",
-              fontFamily: "var(--font-display)",
-              fontWeight: "500",
-              fontSize: "0.8rem",
-              textTransform: "lowercase",
-              backgroundColor:
-                activeJob === idx ? "var(--text-color)" : "var(--bg-card)",
-              color:
-                activeJob === idx ? "var(--bg-color)" : "var(--text-color)",
-              borderRight:
-                idx < experiences.length - 1
-                  ? "1px solid var(--border-color)"
-                  : "none",
-              transition: "all 0.2s",
-            }}
-          >
-            {exp.tabLabel}
+      <div style={{ position: "relative" }}>
+        <div className="exp-tab-row">
+          {experiences.map((exp, idx) => (
+            <div
+              key={idx}
+              onClick={() => handleTabClick(idx)}
+              style={{
+                flex: 1,
+                textAlign: "center",
+                padding: "8px",
+                fontFamily: "var(--font-display)",
+                fontWeight: "500",
+                fontSize: "0.8rem",
+                textTransform: "lowercase",
+                backgroundColor:
+                  activeJob === idx ? "var(--text-color)" : "var(--bg-card)",
+                color:
+                  activeJob === idx ? "var(--bg-color)" : "var(--text-color)",
+                borderRight:
+                  idx < experiences.length - 1
+                    ? "1px solid var(--border-color)"
+                    : "none",
+                transition: "all 0.2s",
+                cursor: "pointer",
+              }}
+            >
+              {exp.tabLabel}
+            </div>
+          ))}
+        </div>
+
+        {/* ── Tab discovery hint ── */}
+        {showHint && (
+          <div className="exp-tab-hint" aria-hidden="true">
+            <span className="exp-tab-hint-arrow">↓</span>
+            <span className="exp-tab-hint-label">more</span>
           </div>
-        ))}
+        )}
       </div>
 
       {/* Nested Details Drawer */}

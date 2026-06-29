@@ -3,19 +3,13 @@ import SpecItem from "@/components/ui/SpecItem";
 import {
   ChevronCodeIcon,
   PinIcon,
-  ClockIcon,
   PhoneIcon,
   MailIcon,
-  LinkIcon,
   GenderIcon,
   GraduationIcon,
 } from "@/components/ui/icons";
 
-interface AboutSectionProps {
-  localTime: string;
-}
-
-export default function AboutSection({ localTime }: AboutSectionProps) {
+export default function AboutSection() {
   return (
     <div
       style={{
@@ -43,11 +37,6 @@ export default function AboutSection({ localTime }: AboutSectionProps) {
           value={personalInfo.location}
         />
         <SpecItem
-          icon={<ClockIcon />}
-          label="local time"
-          value={localTime || "--:--"}
-        />
-        <SpecItem
           icon={<PhoneIcon />}
           label="telephone"
           value={
@@ -70,21 +59,6 @@ export default function AboutSection({ localTime }: AboutSectionProps) {
               style={{ textDecoration: "underline" }}
             >
               {personalInfo.email}
-            </a>
-          }
-        />
-        <SpecItem
-          icon={<LinkIcon />}
-          label="website node"
-          value={
-            <a
-              href={personalInfo.websiteHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="spec-value"
-              style={{ textDecoration: "underline" }}
-            >
-              {personalInfo.website}
             </a>
           }
         />

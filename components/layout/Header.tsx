@@ -1,4 +1,5 @@
 import { personalInfo } from "@/data/personal";
+import { navItems } from "@/data/navigation";
 import {
   GithubIcon,
   LinkedinIcon,
@@ -10,36 +11,22 @@ interface HeaderProps {
   localTime: string;
   copiedEmail: boolean;
   onCopyEmail: () => void;
+  activeSection: number;
+  onNavigate: (index: number) => void;
 }
 
 export default function Header({
   localTime,
   copiedEmail,
   onCopyEmail,
+  activeSection,
+  onNavigate,
 }: HeaderProps) {
   return (
     <header style={{ paddingBottom: "16px" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          flexWrap: "wrap",
-          gap: "16px",
-          paddingRight: "40px",
-        }}
-      >
+      <div className="header-top-row">
         <div>
-          <h1
-            style={{
-              fontSize: "2.4rem",
-              lineHeight: "1.0",
-              fontWeight: "300",
-              letterSpacing: "-0.03em",
-              textTransform: "lowercase",
-              margin: "0",
-            }}
-          >
+          <h1 className="header-name">
             {personalInfo.name}
           </h1>
           <p
@@ -106,6 +93,29 @@ export default function Header({
           Resume &rarr;
         </a>
       </div>
+
+      {/* ── MOBILE-ONLY SECTION INDEX ── */}
+      <nav className="header-section-index" aria-label="Section index">
+        <span className="header-section-index-label">// index</span>
+        <ol className="header-section-index-list">
+          {navItems.map((item) => (
+            <li key={item.index}>
+              <button
+                className={`header-section-index-item ${activeSection === item.index ? "active" : ""}`}
+                onClick={() => onNavigate(item.index)}
+              >
+                <span className="header-section-index-num">
+                  {String(item.index + 1).padStart(2, "0")}
+                </span>
+                <span className="header-section-index-name">
+                  {item.label.replace(/^\d+ \/\/ /, "")}
+                </span>
+                <span className="header-section-index-arrow">→</span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </nav>
     </header>
   );
 }

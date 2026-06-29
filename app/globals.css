@@ -503,53 +503,155 @@ html, body {
   background-color: var(--text-color);
 }
 
-/* MOBILE STICKY NAV BAR */
-.mobile-sticky-nav {
-  position: sticky;
-  top: 12px;
-  left: 0;
-  width: 100%;
-  z-index: 95;
-  background-color: var(--bg-color);
+/* ─────────────────────────────────────────────────────────────
+   HEADER INLINE SECTION INDEX
+   Mobile-only table of contents — hidden on desktop (sidebar handles it)
+───────────────────────────────────────────────────────────── */
+
+.header-section-index {
+  display: none; /* hidden by default; shown on mobile via media query */
+  margin-top: 20px;
   border: 1px solid var(--border-color);
   border-radius: 4px;
-  padding: 8px;
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  white-space: nowrap;
-  scrollbar-width: none;
+  background-color: var(--bg-card);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
 }
 
-.mobile-sticky-nav::-webkit-scrollbar {
-  display: none;
-}
-
-@media (min-width: 1121px) {
-  .mobile-sticky-nav {
-    display: none !important;
+@media (max-width: 1120px) {
+  .header-section-index {
+    display: block;
   }
 }
 
-.mobile-nav-btn {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-transform: lowercase;
-  padding: 4px 10px;
-  background-color: var(--bg-card);
+.header-section-index-label {
+  display: block;
+  padding: 10px 16px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   color: var(--text-muted);
-  border: 1px solid var(--border-color);
-  border-radius: 3px;
-  cursor: pointer;
-  transition: all 0.2s;
+  text-transform: lowercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--border-color);
 }
 
-.mobile-nav-btn.active {
-  color: var(--text-color);
-  background-color: var(--highlight-bg);
-  border-color: var(--text-color);
+.header-section-index-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
+
+@media (max-width: 400px) {
+  .header-section-index-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Dividers between cells via box-shadow trick */
+.header-section-index-list li {
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Remove right border on every 2nd child (right column) */
+.header-section-index-list li:nth-child(2n) {
+  border-right: none;
+}
+
+/* Remove bottom border on last two items */
+.header-section-index-list li:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+@media (max-width: 400px) {
+  .header-section-index-list li {
+    border-right: none;
+  }
+  .header-section-index-list li:last-child {
+    border-bottom: none;
+  }
+  .header-section-index-list li:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--border-color);
+  }
+  .header-section-index-list li:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ── Individual section button ── */
+.header-section-index-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  min-height: 48px; /* WCAG touch target */
+  transition: background-color 0.18s, padding-left 0.18s;
+}
+
+.header-section-index-item:hover,
+.header-section-index-item:focus-visible {
+  background-color: var(--highlight-bg);
+  padding-left: 18px;
+  outline: none;
+}
+
+.header-section-index-item.active {
+  background-color: var(--text-color);
+}
+
+.header-section-index-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: color 0.18s;
+  line-height: 1;
+}
+
+.header-section-index-item.active .header-section-index-num {
+  color: var(--bg-color);
+  opacity: 0.6;
+}
+
+.header-section-index-name {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-transform: lowercase;
+  color: var(--text-color);
+  flex: 1;
+  transition: color 0.18s;
+  line-height: 1.2;
+}
+
+.header-section-index-item.active .header-section-index-name {
+  color: var(--bg-color);
+}
+
+.header-section-index-arrow {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.18s, transform 0.18s, color 0.18s;
+  flex-shrink: 0;
+}
+
+.header-section-index-item:hover .header-section-index-arrow,
+.header-section-index-item.active .header-section-index-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.header-section-index-item.active .header-section-index-arrow {
+  color: var(--bg-color);
+}
+
 
 /* Continuous Dossier Cards Stack */
 .dossier-stack {
@@ -917,4 +1019,369 @@ html, body {
     transform: scale(0.9);
     opacity: 0.6;
   }
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   MOBILE RESPONSIVENESS
+   Breakpoints: 640px (sm), 480px (xs), 360px (xxs)
+───────────────────────────────────────────────────────────── */
+
+/* Reduce base font slightly on mobile */
+@media (max-width: 640px) {
+  html, body {
+    font-size: 15px;
+  }
+}
+
+/* ── Portfolio Container ── */
+@media (max-width: 768px) {
+  .portfolio-container {
+    padding: 56px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .portfolio-container {
+    padding: 48px 14px;
+  }
+}
+
+/* ── Dossier Stack: reduce massive gap on mobile ── */
+@media (max-width: 768px) {
+  .dossier-stack {
+    gap: 80px;
+    margin-top: 40px;
+    margin-bottom: 72px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dossier-stack {
+    gap: 56px;
+    margin-top: 32px;
+    margin-bottom: 56px;
+  }
+}
+
+/* ── Dossier Section: tighter inner padding on mobile ── */
+@media (max-width: 640px) {
+  .dossier-content {
+    padding: 20px 16px;
+  }
+
+  .dossier-header-label {
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dossier-content {
+    padding: 16px 12px;
+  }
+}
+
+/* ── Pull-chain theme switcher: repositioned on mobile ── */
+@media (max-width: 640px) {
+  .pull-chain-container {
+    right: 14px;
+    height: 140px;
+  }
+
+  .pull-chain-cord {
+    height: 84px;
+  }
+}
+
+/* ── Header: scale down the hero name ── */
+.header-name {
+  font-size: 2.4rem;
+  line-height: 1.0;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  text-transform: lowercase;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .header-name {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-name {
+    font-size: 1.55rem;
+  }
+}
+
+/* ── Header top row: reduce padding-right collision with pull chain on mobile ── */
+.header-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-right: 40px;
+}
+
+@media (max-width: 640px) {
+  .header-top-row {
+    padding-right: 48px; /* ensure no overlap with chain at right:14px */
+  }
+}
+
+/* ── Upfront bar: stack vertically on xs ── */
+@media (max-width: 480px) {
+  .upfront-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 0;
+  }
+
+  .resume-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Upfront links: email pill truncation guard ── */
+@media (max-width: 480px) {
+  .upfront-link {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .upfront-links {
+    gap: 6px;
+  }
+}
+
+/* ── Mobile nav bar: slightly smaller font ── */
+@media (max-width: 400px) {
+  .mobile-nav-btn {
+    font-size: 0.72rem;
+    padding: 4px 8px;
+  }
+}
+
+/* ── Status section: 100px label col too wide on tiny screens ── */
+@media (max-width: 400px) {
+  .status-label-grid {
+    grid-template-columns: 80px 1fr !important;
+  }
+}
+
+/* ── Experience tabs: allow wrap on very narrow ── */
+.exp-tab-row {
+  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+@media (max-width: 480px) {
+  .exp-tab-row {
+    flex-wrap: wrap;
+  }
+
+  .exp-tab-row > div {
+    flex: 1 1 45%;
+    min-width: 0;
+  }
+}
+
+/* ── Skills grid: already responsive, fine-tune ── */
+@media (max-width: 360px) {
+  .skills-visual-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ── Tech grid border-left: narrower on mobile ── */
+@media (max-width: 480px) {
+  .tech-grid {
+    padding-left: 14px;
+  }
+}
+
+/* ── Spec grid: always single column below 480px ── */
+@media (max-width: 480px) {
+  .spec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── ProjectCard: reduce padding on mobile ── */
+@media (max-width: 480px) {
+  .project-card-inner {
+    padding: 16px 14px;
+  }
+}
+
+/* ── Form inputs: ensure not too tight ── */
+@media (max-width: 480px) {
+  .brutalist-input {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .brutalist-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 16px;
+  }
+}
+
+/* ── Footer: compact on mobile ── */
+@media (max-width: 640px) {
+  footer {
+    margin-top: 32px;
+  }
+}
+
+/* ── Prevent horizontal overflow from grid bg alignment ── */
+@media (max-width: 640px) {
+  .grid-bg-layer {
+    opacity: 0.5;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SCROLL TO TOP BUTTON
+───────────────────────────────────────────────────────────── */
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 100;
+
+  /* Size & shape */
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+
+  /* Style — matches upfront-link pill aesthetic */
+  background-color: var(--bg-card);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+
+  /* Typography */
+  font-size: 1rem;
+  font-family: var(--font-display);
+  line-height: 1;
+  cursor: pointer;
+
+  /* Flex center the arrow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Hidden by default — fades + slides up into view */
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.25s var(--transition-bezier),
+              transform 0.25s var(--transition-bezier),
+              background-color 0.2s,
+              border-color 0.2s;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+  transform: translateY(-2px);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0);
+}
+
+/* Slightly smaller + repositioned on mobile to avoid clipping */
+@media (max-width: 640px) {
+  .scroll-to-top {
+    width: 34px;
+    height: 34px;
+    bottom: 20px;
+    right: 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   EXPERIENCE TAB DISCOVERY HINT
+───────────────────────────────────────────────────────────── */
+
+.exp-tab-hint {
+  position: absolute;
+  /* Float just above the right half of the tab row (second tab) */
+  top: -28px;
+  right: 0;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+  /* Entrance animation */
+  animation: hintEntrance 0.4s 0.8s var(--transition-bezier) both;
+}
+
+@keyframes hintEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exp-tab-hint-arrow {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  /* Continuous bounce toward the tab */
+  animation: hintBounce 1.1s ease-in-out infinite;
+}
+
+@keyframes hintBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(4px); }
+}
+
+.exp-tab-hint-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 1px 5px;
+  background-color: var(--bg-card);
+  backdrop-filter: blur(4px);
 }

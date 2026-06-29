@@ -8,10 +8,10 @@ import { useParallax } from "@/hooks/useParallax";
 
 import BackgroundLayers from "@/components/background/BackgroundLayers";
 import DesktopSidebar from "@/components/layout/DesktopSidebar";
-import MobileNav from "@/components/layout/MobileNav";
 import ThemeSwitcher from "@/components/layout/ThemeSwitcher";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 import DossierSection from "@/components/ui/DossierSection";
 import AboutSection from "@/components/sections/AboutSection";
@@ -71,8 +71,9 @@ export default function Home() {
   );
 
   return (
-    <div style={{ position: "relative", overflow: "hidden" }}>
+    <div style={{ position: "relative" }}>
       <BackgroundLayers />
+      <ScrollToTop />
 
       <div className="portfolio-layout-wrapper">
         <DesktopSidebar
@@ -81,11 +82,6 @@ export default function Home() {
         />
 
         <div className="portfolio-container">
-          <MobileNav
-            activeSection={activeSection}
-            onNavigate={handleNavigate}
-          />
-
           <ThemeSwitcher
             isPulling={isPulling}
             onClick={handlePullChainClick}
@@ -95,6 +91,8 @@ export default function Home() {
             localTime={localTime}
             copiedEmail={copiedEmail}
             onCopyEmail={handleCopyEmail}
+            activeSection={activeSection}
+            onNavigate={handleNavigate}
           />
 
           {/* ─── Dossier Stack ─── */}
@@ -105,7 +103,7 @@ export default function Home() {
               title={SECTION_TITLES[0]}
               sectionRef={sectionRefs[0]}
             >
-              <AboutSection localTime={localTime} />
+              <AboutSection />
             </DossierSection>
 
             <DossierSection

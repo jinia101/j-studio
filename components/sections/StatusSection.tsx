@@ -68,6 +68,7 @@ export default function StatusSection() {
 
       <div className="tech-grid" style={{ marginTop: "8px" }}>
         <div
+          className="status-label-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "100px 1fr",
@@ -83,6 +84,7 @@ export default function StatusSection() {
           </span>
         </div>
         <div
+          className="status-label-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "100px 1fr",
@@ -133,6 +135,7 @@ export default function StatusSection() {
           </span>
         </div>
         <div
+          className="status-label-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "100px 1fr",
